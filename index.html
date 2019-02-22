@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>harjoitustyö_raportti</title>
+  <style>
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="css/style.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="tilastotieteen-harjoitustyö-2018">Tilastotieteen harjoitustyö 2018</h1>
+<blockquote>
+<p>Samuli Virtanen</p>
+<p><a href="mailto:spevir@utu.fi" class="email">spevir@utu.fi</a></p>
+<p>op. nro. 511178</p>
+</blockquote>
+<h2 id="1-numeeristen-vastemuuttujien-mallinnus">1. Numeeristen vastemuuttujien mallinnus</h2>
+<blockquote>
+<p>Elinolo2018 (Tilastokeskuksen elinolotutkimuksen aineisto, N=2199)</p>
+<p>Kukin opiskelija puolestaan poimii 600 kokoisen satunnaisotoksen kyseisestä datasta seuraavalla tavalla:</p>
+<blockquote>
+<p><em>Transform - Random Number Generators...<br />
+Set Starting Point - Fixed Value - annetaan oma opiskelijanumero - Ok</em><br />
+DATA &gt; SELECT CASES &gt; RANDOM SAMPLE OF CASES &gt;<br />
+EXACTLY 600 CASES FROM THE FIRST 2199 CASES<br />
+CONTINUE<br />
+UNSELECTED CASES ARE FILTERED &gt;</p>
+</blockquote>
+</blockquote>
+<h3 id="11-varianssianalyysi">1.1. Varianssianalyysi</h3>
+<blockquote>
+<p><em>Tutki, onko sukupuolella ja asumisahtaudella yhteyttä asunnon pinta-alaan.</em></p>
+</blockquote>
+<h4 id="111-suunnitelma">1.1.1. Suunnitelma</h4>
+<p>Kyseessä on kaksi kategorista selittävää muuttujaa, sekä yksi numeerinen selitettävä muuttuja, joten käytetään kaksisuuntaista varianssianalyysiä.</p>
+<h4 id="112-normaalijakaumaoletus">1.1.2. Normaalijakaumaoletus</h4>
+<p>Ensimmäiseksi tutkitaan jakaumia sukupuolittain asumisahtauden perusteella.</p>
+<p>Jaetaan data kahteen osaan sukupuolen perusteella.</p>
+<pre><code>SORT CASES BY supu.
+SPLIT FILE SEPARATE BY supu.</code></pre>
+<p>Luodaan tarvittavat kuviot ja tiedot SPSS:n Explore-työkalulla.</p>
+<pre><code>EXAMINE VARIABLES=pala BY ahtas
+  /PLOT BOXPLOT NPPLOT
+  /COMPARE GROUPS
+  /STATISTICS DESCRIPTIVES
+  /CINTERVAL 95
+  /MISSING LISTWISE
+  /NOTOTAL.</code></pre>
+<p>Tulostedokumentista löytyvän Shapiro-Wilk-testin tulosten perusteella neljä ryhmää ei ole normaalisti jakautunut:</p>
+<ul>
+<li>mies * normaali</li>
+<li>mies * tilava</li>
+<li>nainen * normaali</li>
+<li>nainen * tilava</li>
+</ul>
+<p>Näiden ryhmien havaintojen suuresta määrästä johtuen voidaan kuitenkin käyttää parametrista testiä. Myöskin visuaalinen tarkastelu osoittaa ryhmien olevan jokseenkin normaalijakautuneita. Kahden jäljelle jäävän ryhmän havaintojen määrä on pieni, mutta ne ovat testin mukaan normaalijakautuneita.</p>
+<h4 id="113-kaksisuuntainen-varianssianalyysi">1.1.3. Kaksisuuntainen varianssianalyysi</h4>
+<p>Tehdään kaksisuuntainen varianssianalyysi SPSS:n Univariate-työkalulla.</p>
+<pre><code>SPLIT FILE OFF.
+
+UNIANOVA pala BY supu ahtas
+  /METHOD=SSTYPE(3)
+  /INTERCEPT=INCLUDE
+  /PLOT=PROFILE(ahtas*supu)
+  /PRINT=DESCRIPTIVE HOMOGENEITY
+  /CRITERIA=ALPHA(.05)
+  /DESIGN=supu ahtas supu*ahtas.</code></pre>
+<p>Tuloksista nähdään että selittävien muuttujien päävaikutukset ovat merkitseviä merkitsevyystasolla p &lt; 0,05, mutta yhdysvaikutus ei ole merkitsevä. (p ~ 0.638)</p>
+<p>Myöskään hajontojen yhtäsuuruusoletus ei näytä pitävän paikkaansa (Levenen testin p-arvo ~ 0.014)</p>
+<p>Voidaan tulkita että miehillä on keskimäärin suuremmat asunnot kuin naisilla, ja asunnon pinta-ala kasvaa koetun asumisahtauden mukaan järjestyksessä ahdas -&gt; normaali -&gt; tilava (pienestä pinta-alasta suurempaan). Koska yhdysvaikutuksella ei ole merkitystä, voidaan tulkita että sukupuolella ei ole väliä asumisahtauden eroissa.</p>
+<h4 id="114-monivertailut">1.1.4. Monivertailut</h4>
+<p>Tutkitaan vielä monivertailut estimoiduilla keskiarvoilla.</p>
+<pre><code>UNIANOVA pala BY supu ahtas
+  /METHOD=SSTYPE(3)
+  /INTERCEPT=INCLUDE
+  /PLOT=PROFILE(ahtas*supu)
+  /EMMEANS=TABLES(supu) COMPARE ADJ(SIDAK)
+  /EMMEANS=TABLES(ahtas) COMPARE ADJ(SIDAK)
+  /EMMEANS=TABLES(supu*ahtas)
+  /PRINT=ETASQ DESCRIPTIVE HOMOGENEITY
+  /CRITERIA=ALPHA(.05)
+  /DESIGN=supu ahtas supu*ahtas.</code></pre>
+<p>Tulostedokumentista löytyvän <em>Pairwise comparisons</em> -taulukon perusteella voidaan todeta kaikkien asumisahtaustasojen välillä olevan tilastollisesti merkittäviä eroja. (p &lt; 0.001)</p>
+<h3 id="12-regressiomalli">1.2. Regressiomalli</h3>
+<blockquote>
+<p>Tutki, onko kotitalouden kuluttajayksiköiden lukumäärällä, asumismenoilla yhteensä ja alueella asumisajalla yhteyttä asunnon pinta-alaan.</p>
+</blockquote>
+<p><em>Ratkaisu: Sovitetaan regressiomallia, jossa selittäjinä ovat on kuluttajayksiköiden lukumäärä, asumismenot yhteensä sekä alueella asumisaika. Selitettävänä muuttujana on asunnon pinta-ala.</em></p>
+<p>Tutkitaan sirontakuvioita, joka löytyy tulostedokumentista.</p>
+<pre><code>GRAPH
+  /SCATTERPLOT(MATRIX)=rkyks asmenot alaika pala
+  /MISSING=LISTWISE.</code></pre>
+<p>Alueella asumisaika näyttäisi kasvaessaan vaikuttavan pienentäväsi asumismenoihin. Muiden selittävien muuttujien välistä korrelaatiota ei visuaalisesti tarkasteltuna esiinny, jokaisen selittvän muuttujan välinen sirontakuvio on siis suunnilleen ellipsin muotoinen.</p>
+<p>Kovin selkeitä korrelaatioita ei esiinny. Näyttäisi kuitenkin hieman siltä että kodin kuluttajayksiköiden määrän kasvaessa myös asunnon pinta-ala kasvaa ja toisaalta samoin käy myös asumismenojen kasvaessa. Alueella asumisaika ei sen sijaan vaikuta vaikuttavan asunnon pinta-alaan.</p>
+<p>Lasketaan Pearsonin ja Spearmanin korrelaatiokertoimet.</p>
+<pre><code>CORRELATIONS
+  /VARIABLES=alaika asmenot rkyks pala
+  /PRINT=TWOTAIL NOSIG
+  /MISSING=PAIRWISE.
+NONPAR CORR
+  /VARIABLES=alaika asmenot rkyks pala
+  /PRINT=SPEARMAN TWOTAIL NOSIG
+  /MISSING=PAIRWISE.</code></pre>
+<p>Tulostedokumentin tuloksista huomataan, että alueella asumisajan ja asumismenojen yhteensä välillä on merkittävä (Pearsonin korrelaatiokerroin ~ 0.29) yhteys. Huomataan myös että alueella asumisajan ja asunnon pinta-alan välillä sekä kotitalouden kuluttajayksiköiden määrän ja pinta-alan välillä on vielä merkittävämpi yhteys.</p>
+<p>Vastaavat Spearmanin korrelaatiokertoimet ovat hieman korkeampia kuin Pearsonin, mutta eivät paljon. Suhde ei siis ole täydellisen lineaarinen,mutta ei epälineaarinenkaan.</p>
+<p>Luodaan useamman selittäjän lineaarinen malli ja lasketaan sille kertoimet.</p>
+<pre><code>REGRESSION
+  /MISSING LISTWISE
+  /STATISTICS COEFF OUTS CI(95) R ANOVA COLLIN TOL
+  /CRITERIA=PIN(.05) POUT(.10)
+  /NOORIGIN
+  /DEPENDENT pala
+  /METHOD=ENTER alaika asmenot rkyks
+  /SAVE ZRESID.</code></pre>
+<p>Mallin kaavaksi saadaan <em>23.58+24.83*rkyks+0.364*alaika</em>. Selitysaste on vaatimattomat 27,3%. Asumismenojen kerroin ja p-arvo on &lt; 0.001 joten se jätetään mallista pois.</p>
+<h3 id="13-toistomittausmalli">1.3. Toistomittausmalli</h3>
+<p>Poimitaan 700 otoksen suuruinen satunnaisotos datasta Toistomittausaineisto.sav samalla tavalla kuin tehtävässä 1.1.</p>
+<blockquote>
+<p>Tutkijalla on hypoteesi, että potilaan mielestä saatu ohjaus leikkauksen jälkeen toiminnallista seikoista (Functional_M2) on ollut vähäisempää kuin odotettu ennen leikkausta (Functional_M1). Eli keskiarvo toisessa mittauksessa on matalampi. Lisäksi kiinnostaa se, onko tuo ero mittausten välillä erilainen sukupuolittain.</p>
+<p>Tutki saavatko nämä tutkimushypoteesit tukea mallittamalla aineisto toistettujen mittausten varianssianalyysillä.</p>
+</blockquote>
+<h4 id="131-suunnitelma">1.3.1. Suunnitelma</h4>
+<p>Tehtävässä tulee luoda varianssianalyysimalli, jossa on mukana kahden mittauksen toistotekijä ja luokitteleva tekijä.</p>
+<p><strong>Ongelmat</strong>:</p>
+<ul>
+<li><em>Onko potilaan mielestä saatu ohjaus leikkauksen jälkeen vähäisempää kuin odotettu ennen leikkausta?</em></li>
+<li><em>Poikkeavatko erot mittausten välillä sukupuolittain?</em></li>
+</ul>
+<p><strong>Ratkaisu</strong>: <em>Jos varianssianalyysin oletukset ovat voimassa, ongelma voidaan ratkaista toistettujen mittausten varianssianalyysillä.</em></p>
+<p>Käytetään siis toistettujen mittausten varianssianalyysiä. Voidaan seurata varmasti hyvin Tilastollisten mallien peruskurssin kalvoista löytyvää esimerkkiä.</p>
+<h4 id="132-normaalijakaumatestaus">1.3.2. Normaalijakaumatestaus</h4>
+<p>Tutkitaan onko normaalijakaumaoletus voimassa.</p>
+<pre><code>EXAMINE VARIABLES=Functional_M2 Functional_M1 BY D2
+  /PLOT BOXPLOT HISTOGRAM NPPLOT
+  /COMPARE GROUPS
+  /STATISTICS DESCRIPTIVES
+  /CINTERVAL 95
+  /MISSING LISTWISE
+  /NOTOTAL.</code></pre>
+<p>Shapiro-Wilk testin perusteella (p &lt; 0.001) voidaan todeta että normaalijakaumaoletus ei ole voimassa. Tulostedokumentin histogrammeista myös nähdään että otoksen Functional mittausten arvot ovat vasemmalle vinot, ja arvot painottuvat voimakkaasti asteikon yläpäähän. (Otoksen näytteistä suurimman osan arvot ovat 4.0, joka on myös suurin arvo.)</p>
+<p>Näin suurilla otoksilla normaalijakaumaoletuksen voisi kenties hylätä, mutta noin voimakas vinous voinee altistaa virheellisille ennusteille, sillä ANOVA olettaa datan olevan kuitenkin normaalijakautunutta. Yritetään siis ensin Friedmannin ja Wilcoxonin testejä.</p>
+<h4 id="133-analyysi-alkuperäisille-muuttujille">1.3.3. Analyysi alkuperäisille muuttujille</h4>
+<p>Koska normaalijakaumaoletus ei ole voimassa, käytetään Friedmanin epäparametrista testiä muuttujien sijaintien erojen testaamiseen.</p>
+<pre><code>NPAR TESTS
+  /FRIEDMAN=Functional_M1 Functional_M2
+  /MISSING LISTWISE.</code></pre>
+<p>Tulokseksi saadaan, että muuttujien väliset arvot ovat tilastollisesti merkitseviä. (p&lt;0.001) Muuttujien väliset vertailut pareittain voidaan siten suorittaa bonferroni-korjatuin Wilcoxonin testein.</p>
+<pre><code>NPAR TESTS
+  /WILCOXON=Functional_M1 WITH Functional_M2 (PAIRED)
+  /MISSING ANALYSIS.</code></pre>
+<p>Bonferroni-korjausta ei tarvita koska kyseessä on vain yksi vertailu. Mittausten välinen ero on tilastollisesti merkitsevä (p&lt;0.001). Tulos on sama myös molemmille sukupuolille erikseen.</p>
+<h5 id="suunnitelman-muutos">Suunnitelman muutos</h5>
+<p>Huomasin että eroa mittausten välillä sukupuolittain ei pysty tällä tavalla tekemään, ainakaan omilla taidoillani. Käytetään normaalijakaumaoletuksen toteutumattomuudesta huolimatta toistettujen mittausten varianssianalyysiä, jotta saamme selville mittausten välisen eron sukupuolittain.</p>
+<pre><code>GLM Functional_M1 Functional_M2 BY D2 
+  /WSFACTOR=mittaus 2 Polynomial 
+  /METHOD=SSTYPE(3) 
+  /PLOT=PROFILE(mittaus*D2) 
+  /EMMEANS=TABLES(mittaus) 
+  /PRINT=DESCRIPTIVE 
+  /CRITERIA=ALPHA(.05) 
+  /WSDESIGN=mittaus 
+  /DESIGN=D2.</code></pre>
+<p>Tuloksista selviää, että</p>
+<ul>
+<li>Sukupuolten välinen ero ei ole tilastollisesti merkitsevä (p=0.482).</li>
+<li>Mittausten väliset erot ovat tilastollisesti merkitseviä (p&lt;0.001).</li>
+<li>Yhdysvaikutus on tilastollisesti merkitsevä (p=0.008).</li>
+</ul>
+<p>Tulosteesta "Profile plots" nähdään, että jälkimmäisen mittauksen tulokset ovat olleet keskimäärin matalampia kuin ensimmäisen. Muutos on ollut laskeva molemmilla sukupuolilla, mutta naisilla pudotus tyytyväisyydessä on ollut voimakkaampi.</p>
+<h4 id="134-lopputulos">1.3.4. Lopputulos</h4>
+<p>Tulosten merkitsevyys ilmoitettu p-arvolla 0.05.</p>
+<ul>
+<li><em>Onko potilaan mielestä saatu ohjaus leikkauksen jälkeen vähäisempää kuin odotettu ennen leikkausta?</em></li>
+</ul>
+<p>Kyllä.</p>
+<ul>
+<li><em>Poikkeavatko erot mittausten välillä sukupuolittain?</em></li>
+</ul>
+<p>Kyllä - naisten tyytyväisyys putosi enemmän kuin miesten, ja sukupuolen ja mittausten yhdysvaikutus oli merkitsevää.</p>
+<h2 id="2-kategoristen-vastemuuttujien-mallitus">2. Kategoristen vastemuuttujien mallitus</h2>
+<ul>
+<li>Käytetty aineisto: EK2011 (eduskuntavaaliaineisto vuodelta 2011, N=1318)</li>
+<li>satunnaisotos (n = 800)</li>
+</ul>
+<h3 id="21-muuttujien-riippuvuusrakenne">2.1. Muuttujien riippuvuusrakenne</h3>
+<h4 id="211-tarkastellaan-muuttujia-sukupuoli-d2-työttömyys-viimeisen-12-kuukauden-aikana-k32-ja-oman-sukupuolen-2011-eduskuntavaaleissa-äänestäminen-k23-tee-ensin-yksiulotteiset-frekvenssijakaumat-ja-kolmen-muuttujan-ristiintaulu">2.1.1. Tarkastellaan muuttujia sukupuoli (d2), työttömyys viimeisen 12 kuukauden aikana (k32) ja oman sukupuolen 2011 eduskuntavaaleissa äänestäminen (k23). Tee ensin yksiulotteiset frekvenssijakaumat ja kolmen muuttujan ristiintaulu.</h4>
+<p><em>Onko 3-ulotteisessa ristiintaulussa nollasoluja ?</em></p>
+<h4 id="212-tarkastele-kolmen-muuttujan-välisiä-riippuvuuksia-loglineaaristen-mallien-avulla-ota-mukaan-muuttujista-vain-ne-luokat-joissa-havaintoja-on-yli-10">2.1.2. Tarkastele kolmen muuttujan välisiä riippuvuuksia loglineaaristen mallien avulla. Ota mukaan muuttujista vain ne luokat, joissa havaintoja on yli 10.</h4>
+<p><em>Millaiset riippuvuudet muuttujien välillä askeltavan menetelmän avulla valittuun malliin jäivät?</em></p>
+<p><em>Mikä on mallin generoiva luokka?</em></p>
+<p><em>Mikä on mallin yhteensopivuustestin p-arvo? Mikä on standardoitujen jäännösten vaihteluväli?</em></p>
+<h4 id="213-tee-mallin-mukainen-yhteyksien-jatkotarkastelu-ristiintauluin-ja-tulkitse-malli-riviprosenttien-avulla">2.1.3. Tee mallin mukainen yhteyksien jatkotarkastelu ristiintauluin ja tulkitse malli riviprosenttien avulla.</h4>
+<h3 id="22-kaksiluokkainen-selitettävä-muuttuja">2.2. Kaksiluokkainen selitettävä muuttuja</h3>
+</body>
+</html>
