@@ -23,19 +23,12 @@
 <p><a href="mailto:spevir@utu.fi" class="email">spevir@utu.fi</a></p>
 <p>op. nro. 511178</p>
 </blockquote>
+<p>Tulostedokumentin tulosteet ovat tehtäviä vastaavassa järjestyksessä lukuunottamatta osaa 1.3. Toistomittausaineisto, jonka tulosteet löytyvät tulostedokumentin lopusta.</p>
 <h2 id="1-numeeristen-vastemuuttujien-mallinnus">1. Numeeristen vastemuuttujien mallinnus</h2>
-<blockquote>
-<p>Elinolo2018 (Tilastokeskuksen elinolotutkimuksen aineisto, N=2199)</p>
-<p>Kukin opiskelija puolestaan poimii 600 kokoisen satunnaisotoksen kyseisestä datasta seuraavalla tavalla:</p>
-<blockquote>
-<p><em>Transform - Random Number Generators...<br />
-Set Starting Point - Fixed Value - annetaan oma opiskelijanumero - Ok</em><br />
-DATA &gt; SELECT CASES &gt; RANDOM SAMPLE OF CASES &gt;<br />
-EXACTLY 600 CASES FROM THE FIRST 2199 CASES<br />
-CONTINUE<br />
-UNSELECTED CASES ARE FILTERED &gt;</p>
-</blockquote>
-</blockquote>
+<ul>
+<li>Aineisto: Elinolo2018 (Tilastokeskuksen elinolotutkimuksen aineisto, N=2199)</li>
+<li>Datasta poimittu 600 kokoinen satunnaisotos käyttämällä omaa opiskelijanumeroa satunnaislukugeneraattorin siemenlukuna, tehtävän ohjeiden mukaisesti.</li>
+</ul>
 <h3 id="11-varianssianalyysi">1.1. Varianssianalyysi</h3>
 <blockquote>
 <p><em>Tutki, onko sukupuolella ja asumisahtaudella yhteyttä asunnon pinta-alaan.</em></p>
@@ -123,11 +116,15 @@ NONPAR CORR
   /SAVE ZRESID.</code></pre>
 <p>Mallin kaavaksi saadaan <em>23.58+24.83*rkyks+0.364*alaika</em>. Selitysaste on vaatimattomat 27,3%. Asumismenojen kerroin ja p-arvo on &lt; 0.001 joten se jätetään mallista pois.</p>
 <h3 id="13-toistomittausmalli">1.3. Toistomittausmalli</h3>
-<p>Poimitaan 700 otoksen suuruinen satunnaisotos datasta Toistomittausaineisto.sav samalla tavalla kuin tehtävässä 1.1.</p>
 <blockquote>
-<p>Tutkijalla on hypoteesi, että potilaan mielestä saatu ohjaus leikkauksen jälkeen toiminnallista seikoista (Functional_M2) on ollut vähäisempää kuin odotettu ennen leikkausta (Functional_M1). Eli keskiarvo toisessa mittauksessa on matalampi. Lisäksi kiinnostaa se, onko tuo ero mittausten välillä erilainen sukupuolittain.</p>
-<p>Tutki saavatko nämä tutkimushypoteesit tukea mallittamalla aineisto toistettujen mittausten varianssianalyysillä.</p>
+<p><em>Huom. Tämän osion tulosteet löytyvät tulostedokumentin lopusta. Tulosteet eivät jostain syystä tallentuneet silloin, kun tein tehtävän.</em></p>
 </blockquote>
+<ul>
+<li>Aineisto: Toistomittausaineisto2018</li>
+<li>Poimitaan 700 otoksen suuruinen satunnaisotos datasta Toistomittausaineisto.sav samalla tavalla kuin tehtävässä 1.1.</li>
+</ul>
+<p><em>Tutkijalla on hypoteesi, että potilaan mielestä saatu ohjaus leikkauksen jälkeen toiminnallista seikoista (Functional_M2) on ollut vähäisempää kuin odotettu ennen leikkausta (Functional_M1). Eli keskiarvo toisessa mittauksessa on matalampi. Lisäksi kiinnostaa se, onko tuo ero mittausten välillä erilainen sukupuolittain.</em></p>
+<p><em>Tutki saavatko nämä tutkimushypoteesit tukea mallittamalla aineisto toistettujen mittausten varianssianalyysillä.</em></p>
 <h4 id="131-suunnitelma">1.3.1. Suunnitelma</h4>
 <p>Tehtävässä tulee luoda varianssianalyysimalli, jossa on mukana kahden mittauksen toistotekijä ja luokitteleva tekijä.</p>
 <p><strong>Ongelmat</strong>:</p>
@@ -189,16 +186,203 @@ NONPAR CORR
 <h2 id="2-kategoristen-vastemuuttujien-mallitus">2. Kategoristen vastemuuttujien mallitus</h2>
 <ul>
 <li>Käytetty aineisto: EK2011 (eduskuntavaaliaineisto vuodelta 2011, N=1318)</li>
-<li>satunnaisotos (n = 800)</li>
+<li>Datasta poimittu 800 kokoinen satunnaisotos käyttämällä omaa opiskelijanumeroa satunnaislukugeneraattorin siemenlukuna, tehtävän ohjeiden mukaisesti.</li>
 </ul>
 <h3 id="21-muuttujien-riippuvuusrakenne">2.1. Muuttujien riippuvuusrakenne</h3>
-<h4 id="211-tarkastellaan-muuttujia-sukupuoli-d2-työttömyys-viimeisen-12-kuukauden-aikana-k32-ja-oman-sukupuolen-2011-eduskuntavaaleissa-äänestäminen-k23-tee-ensin-yksiulotteiset-frekvenssijakaumat-ja-kolmen-muuttujan-ristiintaulu">2.1.1. Tarkastellaan muuttujia sukupuoli (d2), työttömyys viimeisen 12 kuukauden aikana (k32) ja oman sukupuolen 2011 eduskuntavaaleissa äänestäminen (k23). Tee ensin yksiulotteiset frekvenssijakaumat ja kolmen muuttujan ristiintaulu.</h4>
-<p><em>Onko 3-ulotteisessa ristiintaulussa nollasoluja ?</em></p>
-<h4 id="212-tarkastele-kolmen-muuttujan-välisiä-riippuvuuksia-loglineaaristen-mallien-avulla-ota-mukaan-muuttujista-vain-ne-luokat-joissa-havaintoja-on-yli-10">2.1.2. Tarkastele kolmen muuttujan välisiä riippuvuuksia loglineaaristen mallien avulla. Ota mukaan muuttujista vain ne luokat, joissa havaintoja on yli 10.</h4>
-<p><em>Millaiset riippuvuudet muuttujien välillä askeltavan menetelmän avulla valittuun malliin jäivät?</em></p>
-<p><em>Mikä on mallin generoiva luokka?</em></p>
-<p><em>Mikä on mallin yhteensopivuustestin p-arvo? Mikä on standardoitujen jäännösten vaihteluväli?</em></p>
-<h4 id="213-tee-mallin-mukainen-yhteyksien-jatkotarkastelu-ristiintauluin-ja-tulkitse-malli-riviprosenttien-avulla">2.1.3. Tee mallin mukainen yhteyksien jatkotarkastelu ristiintauluin ja tulkitse malli riviprosenttien avulla.</h4>
-<h3 id="22-kaksiluokkainen-selitettävä-muuttuja">2.2. Kaksiluokkainen selitettävä muuttuja</h3>
+<h4 id="211-tarkastellaan-muuttujia-sukupuoli-d2-työttömyys-viimeisen-12-kuukauden-aikana-k32-ja-oman-sukupuolen-2011-eduskuntavaaleissa-äänestäminen-k23-tee-ensin-yksiulotteiset-frekvenssijakaumat-ja-kolmen-muuttujan-ristiintaulu">2.1.1. Tarkastellaan muuttujia sukupuoli (d2), työttömyys viimeisen 12 kuukauden aikana (k32) ja oman sukupuolen 2011 eduskuntavaaleissa äänestäminen (k23). Tee ensin yksiulotteiset frekvenssijakaumat ja kolmen muuttujan ristiintaulu</h4>
+<p><em>Onko 3-ulotteisessa ristiintaulussa nollasoluja?</em></p>
+<pre><code>FREQUENCIES VARIABLES=d2 k23 d32
+  /ORDER=ANALYSIS.
+
+CROSSTABS
+  /TABLES=d32 BY k23 BY d2
+  /FORMAT=AVALUE TABLES
+  /CELLS=COUNT
+  /COUNT ROUND CELL.</code></pre>
+<p>Huomataan, että puuttuvia arvoja on sekä sukupuolessa että viimeisen 12kk työttömyydessä 13 kappaletta, ja omaa sukupuolta äänestäneissä 125 kappaletta. Omaa sukupuolta äänestäneiden puuttuvien arvojen määrä on huomattava, joka on huomioitava analyysissä.</p>
+<p>Ristiintaulussa ei ole nollasoluja.</p>
+<h4 id="212-tarkastele-kolmen-muuttujan-välisiä-riippuvuuksia-loglineaaristen-mallien-avulla-ota-mukaan-muuttujista-vain-ne-luokat-joissa-havaintoja-on-yli-10">2.1.2. Tarkastele kolmen muuttujan välisiä riippuvuuksia loglineaaristen mallien avulla. Ota mukaan muuttujista vain ne luokat, joissa havaintoja on yli 10</h4>
+<p>Kaikissa luokissa on havaintoja yli 10 kappaletta, joten otetaan mukaan kaikki luokat.</p>
+<p>Suoritetaan analyysi seuraavalla komennolla</p>
+<pre><code>HILOGLINEAR d2(1 2) d32(1 2) k23(0 1) 
+  /METHOD=BACKWARD
+  /CRITERIA MAXSTEPS(10) P(.05) ITERATION(20) DELTA(.5)
+  /PRINT=FREQ RESID
+  /DESIGN.</code></pre>
+<h5 id="millaiset-riippuvuudet-muuttujien-välillä-askeltavan-menetelmän-avulla-valittuun-malliin-jäivät"><em>Millaiset riippuvuudet muuttujien välillä askeltavan menetelmän avulla valittuun malliin jäivät?</em></h5>
+<p>Riippuvuuksiksi jäivät sukupuolen (d2) ja omaa sukupuolta äänestämisen (k23) yhteisvaikutus.</p>
+<h5 id="mikä-on-mallin-generoiva-luokka"><em>Mikä on mallin generoiva luokka?</em></h5>
+<p>Askeltavan mallin valitseman mallin generoiva luokka on d2*k23 + d32. (sukupuoli*omaa sukupuolta äänestäminen + työttömyys viim. 12kk aikana).</p>
+<h5 id="mikä-on-mallin-yhteensopivuustestin-p-arvo-mikä-on-standardoitujen-jäännösten-vaihteluväli"><em>Mikä on mallin yhteensopivuustestin p-arvo? Mikä on standardoitujen jäännösten vaihteluväli?</em></h5>
+<p>Yhteensopivuustestin p-arvo on 0.561.</p>
+<p>Mallin standardoidut jäännökset ovat pieniä [-0.657, 1.046], joten malli sopii kuvaamaan kolmen muuttujan keskinäisiä yhteyksiä.</p>
+<h4 id="213-tee-mallin-mukainen-yhteyksien-jatkotarkastelu-ristiintauluin-ja-tulkitse-malli-riviprosenttien-avulla">2.1.3. Tee mallin mukainen yhteyksien jatkotarkastelu ristiintauluin ja tulkitse malli riviprosenttien avulla</h4>
+<p>Mallin ainoa riippuvuus on sukupuolen ja omaa sukupuolta äänestämisen välillä, joten sen jatkotarkastelu riittää. Jatkotarkasteluksi riittää sukupuolen ja omaa sukupuolta äänestämisen välisen yhteyden tarkastelu marginaalitaulusta.</p>
+<pre><code>CROSSTABS
+  /TABLES=d2 BY k23
+  /FORMAT=AVALUE TABLES
+  /STATISTICS=CHISQ 
+  /CELLS=COUNT ROW SRESID 
+  /COUNT ROUND CELL.</code></pre>
+<p>Tuloksista huomataan, että miehet äänestävät naisia useammin omaa sukupuolta olevaa ehdokasta. Tässä aineistossa miehistä 66,6% äänestää omaa sukupuolta, naisista vain 55,8%.</p>
+<h3 id="22-kaksiluokkainen-selitettävä-muuttuja">2.2. Kaksiluokkainen selitettävä muuttuja</h3>
+<h4 id="221-tutki-muuttujien-sukupuoli-d2-ja-ikä-yhteyttä-työttömyyteen-viimeisen-12-kuukauden-aikana-k32-käyttämällä-logistista-regressiomallia">2.2.1. Tutki muuttujien sukupuoli (d2) ja ikä yhteyttä työttömyyteen viimeisen 12 kuukauden aikana (k32) käyttämällä logistista regressiomallia.</h4>
+<p>Tutkitaan dataa SPSS:n Binary logistics -työkalulla. Otetaan mukaan myös luottamusvälit.</p>
+<pre><code>LOGISTIC REGRESSION VARIABLES d32
+  /METHOD=ENTER d2 ika
+  /CONTRAST (d2)=Simple
+  /PRINT=GOODFIT CI(95)
+  /CRITERIA=PIN(0.05) POUT(0.10) ITERATE(20) CUT(0.5).</code></pre>
+<h4 id="222-mitkä-muuttujat-selittävät-työttömyyttä-">2.2.2. Mitkä muuttujat selittävät työttömyyttä ?</h4>
+<p>Tuloksista huomataan, että sukupuolella ei ole tilastollisesti merkitsevää yhteyttä työttömyyteen viimeisen 12kk aikana (p = 0.439).</p>
+<p>Sen sijaan mitä enemmän on ikää, sitä todennäköisempää on, että ei ole ollut työttömänä viimeisen 12 kk aikana. Iän yhteydelle työttömyyteen p &lt; 0.001.</p>
+<h5 id="tulkitse-yhteydet-orien-avulla-raportoi-myös-luottamusvälit-orille">Tulkitse yhteydet OR:ien avulla. Raportoi myös luottamusvälit OR:ille</h5>
+<p>Mitä enemmän on ikää, sitä todennäköisempää on, että ei ole ollut työttömänä viimeisen 12kk aikana. (OR = 0.963).</p>
+<p>Koska sukupuoli ei ole merkittävä tekijä mallissa, sitä ei huomioida tarkastelussa.</p>
+<p>Iän kasvaessa todennäköisyys luokittua työttömäksi vähenee 0.038 yksikköä per ikävuosi.</p>
+<p>OR:n luottamusväli on [0.951, 0.975].</p>
+<h5 id="mikä-on-mallin-nagelkerke-selitysaste">Mikä on mallin Nagelkerke-selitysaste?</h5>
+<p>Mallin Nagelkerke-selitysaste on 0.086.</p>
+<h2 id="3-monimuuttujamenetelmät">3. Monimuuttujamenetelmät</h2>
+<ul>
+<li>Aineisto: pankkiotos2018 (todellinen asiakasaineisto, N=2453)</li>
+<li>Datasta poimittu 1200 kokoinen satunnaisotos käyttämällä omaa opiskelijanumeroa satunnaislukugeneraattorin siemenlukuna, tehtävän ohjeiden mukaisesti.</li>
+</ul>
+<h3 id="31muuttujien-ryhmittely">3.1.Muuttujien ryhmittely</h3>
+<h4 id="311-muodosta-pääkomponenttianalyysilla-luokitelluista-muuttujista-41-kpl--autom_lainan_perinta_luok---kulutusluotot1_luok-pääkomponentteja-ominaisarvokriteerin-mukaan-promax-rotaatio">3.1.1. Muodosta pääkomponenttianalyysilla luokitelluista muuttujista (41 kpl : autom_lainan_perinta_luok - kulutusluotot1_luok) pääkomponentteja ominaisarvokriteerin mukaan. (Promax-rotaatio)</h4>
+<p>Muodostetaan pääkomponentit SPSS:n Dimension Reduction - Factor -työkalulla. Ensimmäisellä kerralla mukaan valittiin kaikki muuttujat, mutta komennon suoritus päättyi virheeseen. Silmämääräisellä tarkistuksella huomattiin, että muuttujalla <em>toimeksianto_b_kpl_luok</em> kaikki arvot olivat 0. Tämä muuttuja ei siten tuo mitään tietoa analyysiin, ja sen voi jättää analyysista pois. Poisjättämisen jälkeen syntaksin suoritus onnistui.</p>
+<pre><code>
+FACTOR
+  /VARIABLES autom_lainan_perinta_luok lainojen_lukumaara_luok asuntoluotot1_luok 
+    automaattinostoja_luok vakuutus_a_luok asuntolaina_a_kpl_luok asuntolaina_b_kpl_luok 
+    vakuutus_b_luok vakuutus_c_luok korkeakork_kpl_luok rahasto_a1_luok pankkikorttilkm_luok 
+    luottokortteja_yhteensa_luok maaraaikaistileja_luok maksuautomaattitapahtumia_luok 
+    kayttotili_tal_luok kayttotili_vel_luok asuntolaina_c_kpl_luok osakkeet_euroa_1_luok 
+    eri_osakesarjoja_luok rahasto_b1_luok ottoja_luok pkorttimaksuja_luok panoja_luok 
+    asuntolaina_d_kpl_luok palveluja_kpl_luok rahastolajeja_luok lainarastit_luok saastotililla_luok 
+    asuntolaina_e_kpl_luok suoraveloituksia_luok netissa_maksut_luok maksupalvelussa_maksut_luok 
+    tiskilla_maksut_luok tilinylityspaivat_luok toimeksianto_a_kpl_luok kv_maksukortit_luok 
+    rahasto_c1_luok korttiluotot1_luok kulutusluotot1_luok
+  /MISSING LISTWISE 
+  /ANALYSIS autom_lainan_perinta_luok lainojen_lukumaara_luok asuntoluotot1_luok 
+    automaattinostoja_luok vakuutus_a_luok asuntolaina_a_kpl_luok asuntolaina_b_kpl_luok 
+    vakuutus_b_luok vakuutus_c_luok korkeakork_kpl_luok rahasto_a1_luok pankkikorttilkm_luok 
+    luottokortteja_yhteensa_luok maaraaikaistileja_luok maksuautomaattitapahtumia_luok 
+    kayttotili_tal_luok kayttotili_vel_luok asuntolaina_c_kpl_luok osakkeet_euroa_1_luok 
+    eri_osakesarjoja_luok rahasto_b1_luok ottoja_luok pkorttimaksuja_luok panoja_luok 
+    asuntolaina_d_kpl_luok palveluja_kpl_luok rahastolajeja_luok lainarastit_luok saastotililla_luok 
+    asuntolaina_e_kpl_luok suoraveloituksia_luok netissa_maksut_luok maksupalvelussa_maksut_luok 
+    tiskilla_maksut_luok tilinylityspaivat_luok toimeksianto_a_kpl_luok kv_maksukortit_luok 
+    rahasto_c1_luok korttiluotot1_luok kulutusluotot1_luok
+  /PRINT INITIAL SIG KMO AIC EXTRACTION ROTATION
+  /FORMAT SORT
+  /CRITERIA MINEIGEN(1) ITERATE(25)
+  /EXTRACTION PC
+  /CRITERIA ITERATE(25)
+  /ROTATION PROMAX(4)
+  /SAVE REG(ALL)
+  /METHOD=CORRELATION.</code></pre>
+<p>Pääkomponentteja muodostui 14 kappaletta. Ominaisarvokriteerinä pidettiin ominaisarvon olemista suurempi kuin 1.</p>
+<h4 id="312-talleta-havaintomatriisiin-uusiksi-muuttujiksi-pääkomponenttipistemäärät">3.1.2. Talleta havaintomatriisiin uusiksi muuttujiksi pääkomponenttipistemäärät</h4>
+<p>Pääkomponentit tallettuivat havaintomatriisiin syntaksin</p>
+<pre><code>/SAVE REG(ALL)</code></pre>
+<p>komennon ansiosta.</p>
+<h4 id="313-nimeä-uudet-muuttujat-pääkomponentteihin-latautuneiden-muuttujien-mukaisesti">3.1.3. Nimeä uudet muuttujat (pääkomponentteihin latautuneiden muuttujien mukaisesti)</h4>
+<p>Noin ensimmäisen neljän pääkomponentin osalta on jokseenkin tulkittavissa, että komponentteihin latautuu toisiinsa liittyviä muuttujia. Tästä eteenpäin komponenttien lataukset ovat niin hajanaiset, että muuttujien nimeäminen olisi jo harhaanjohtavaa.</p>
+<p>Nämä ovat toki tulkintakysymyksiä mutta kun kyseessä on todellinen aineisto helposti ymmärrettävästä aiheesta, tulkinnan tekeminen selkeästi tulkittavissa olevista pääkomponenttien latauksista ei johda tarpeettomasti harhaan.</p>
+<h5 id="ehdotukseni-joidenkin-pääkomponenttien-nimeksi">Ehdotukseni joidenkin pääkomponenttien nimeksi:</h5>
+<ol>
+<li><strong>Tilinkäyttöaktiivisuus</strong> (Pääkomponentissa painottuvat erityisesti ottojen, nostojen, panojen ja maksujen määrä.)</li>
+<li><strong>Säästämisaktiivisuus</strong> (Painottuvina rahastot, osakkeet yms.)</li>
+<li><em>Vaikeatulkintainen.</em> (Lataukset matalia) Jätetään nimeämättä.</li>
+<li><strong>Asuntolainallisuus</strong> (painottuvina asuntolainaan ja lainanlyhennykseen liittyvät muuttujat)</li>
+<li><strong>Osakesijoittaminen</strong></li>
+<li><em>Vaikeatulkintainen</em></li>
+<li><em>Vaikeatulkintainen</em></li>
+<li><em>Vaikeatulkintainen</em></li>
+<li><em>Vaikeatulkintainen</em></li>
+<li><em>Vaikeatulkintainen</em></li>
+<li><strong>Käyttötilivelallinen</strong></li>
+<li><strong>Rahasto a</strong></li>
+<li><strong>Vakuutukselliset</strong></li>
+<li><strong>Asuntolaina b</strong></li>
+</ol>
+<p>Klusterianalyysiä varten jätetään komponentit kuitenkin toistaiseksi nimeämättä, ja käytetään pääkomponenttien numerointia 1-14.</p>
+<h3 id="32-havaintojen-ryhmittely">3.2. Havaintojen ryhmittely</h3>
+<h4 id="321-käytä-näitä-uusia-muuttujia-klusterianalyysissä-jossa-muodostat-asiakasryhmiä-k-means-menetelmällä-lähtien-kahdesta-klusterista-viiteen-tai-kuuteen-klusteriin-saakka-kuvaile-muodostamiasi-ryhmiä">3.2.1. Käytä näitä uusia muuttujia klusterianalyysissä, jossa muodostat asiakasryhmiä K-means menetelmällä lähtien kahdesta klusterista viiteen tai kuuteen klusteriin saakka. Kuvaile muodostamiasi ryhmiä.</h4>
+<p>Suoritetaan klusterianalyysi aina viiteen klusteriin asti:</p>
+<pre><code>QUICK CLUSTER FAC1_1 FAC2_1 FAC3_1 FAC4_1 FAC5_1 FAC6_1 FAC7_1 FAC8_1 FAC9_1 FAC10_1 FAC11_1 
+    FAC12_1 FAC13_1 FAC14_1
+  /MISSING=LISTWISE
+  /CRITERIA=CLUSTER(2) MXITER(10) CONVERGE(0)
+  /METHOD=KMEANS(NOUPDATE)
+  /SAVE CLUSTER
+  /PRINT INITIAL.
+
+QUICK CLUSTER FAC1_1 FAC2_1 FAC3_1 FAC4_1 FAC5_1 FAC6_1 FAC7_1 FAC8_1 FAC9_1 FAC10_1 FAC11_1 
+    FAC12_1 FAC13_1 FAC14_1
+  /MISSING=LISTWISE
+  /CRITERIA=CLUSTER(3) MXITER(10) CONVERGE(0)
+  /METHOD=KMEANS(NOUPDATE)
+  /SAVE CLUSTER
+  /PRINT INITIAL.
+
+QUICK CLUSTER FAC1_1 FAC2_1 FAC3_1 FAC4_1 FAC5_1 FAC6_1 FAC7_1 FAC8_1 FAC9_1 FAC10_1 FAC11_1 
+    FAC12_1 FAC13_1 FAC14_1
+  /MISSING=LISTWISE
+  /CRITERIA=CLUSTER(4) MXITER(10) CONVERGE(0)
+  /METHOD=KMEANS(NOUPDATE)
+  /SAVE CLUSTER
+  /PRINT INITIAL.
+
+QUICK CLUSTER FAC1_1 FAC2_1 FAC3_1 FAC4_1 FAC5_1 FAC6_1 FAC7_1 FAC8_1 FAC9_1 FAC10_1 FAC11_1 
+    FAC12_1 FAC13_1 FAC14_1
+  /MISSING=LISTWISE
+  /CRITERIA=CLUSTER(5) MXITER(10) CONVERGE(0)
+  /METHOD=KMEANS(NOUPDATE)
+  /SAVE CLUSTER
+  /PRINT INITIAL.</code></pre>
+<p>Huomataan että viiden klusterin tapauksessa jää klustereihin 2, 4, ja 5 vain 2, 4, ja 4 kappaletta havaintoja. Tällöin on tuskin mielekästä ottaa malliin näin montaa klusteria.</p>
+<p>Muiden klusterimäärien havaintojen määrät klustereittain:</p>
+<h5 id="k2">k=2:</h5>
+<ol>
+<li>1134</li>
+<li>66</li>
+</ol>
+<h5 id="k3">k=3:</h5>
+<ol>
+<li>70</li>
+<li>250</li>
+<li>880</li>
+</ol>
+<h5 id="k4">k=4:</h5>
+<ol>
+<li>44</li>
+<li>25</li>
+<li>251</li>
+<li>880</li>
+</ol>
+<p>Valitaan analyysin klusterien määräksi 4, ja kuvaillaan muodostuneita ryhmiä.</p>
+<ul>
+<li>Klusteria 1 profiloivat pääkomponentit:
+<ul>
+<li>3, 6, 11, 12</li>
+</ul></li>
+<li>Klusteria 2 profiloivat pääkomponentit:
+<ul>
+<li>4, 5, 10, 13</li>
+</ul></li>
+<li>Klusteria 3 profiloivat pääkomponentit:
+<ul>
+<li>1, 2, 7, 8, 9</li>
+</ul></li>
+<li>Klusteria 4 profiloivat pääkomponentit:
+<ul>
+<li>14</li>
+</ul></li>
+</ul>
+<h4 id="johtopäätökset">Johtopäätökset</h4>
+<p>Pääkomponentit hajaantuvat eri klustereihin niin, että johtopäätöksiä ryhmien luonteesta on vaikea tehdä, etenkin johtuen pääkomponenttien suuresta määrästä ja pääkomponentteihin latautuneiden muuttujien lataantumisien hajaantumisesta.</p>
+<p>Riskinä on virheellisten johtopäätösten teko ryhmien luonteesta. Jätetään ryhmien tulkinta siis tekemättä ja tyydytään kuvailussa analyysin tuottamien tulosten varaan.</p>
 </body>
 </html>
